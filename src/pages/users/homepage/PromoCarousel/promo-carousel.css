@@ -1,0 +1,561 @@
+/* =========================================================
+   VITRINE / OFERTAS
+
+   Visual mais premium, espaçado e editorial.
+   ========================================================= */
+
+.promo-carousel {
+    width: 100%;
+
+    margin-top: 48px;
+    margin-bottom: 44px;
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.promo-carousel-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-bottom: 22px;
+    padding-left: 2px;
+}
+
+.promo-carousel-heading>span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 6px;
+
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    color: var(--mkf-ui-primary, #092af3);
+}
+
+/* pequeno detalhe visual antes de Vitrine */
+.promo-carousel-heading>span::before {
+    content: "";
+
+    width: 18px;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: currentColor;
+}
+
+.promo-carousel-heading h2 {
+    margin: 0;
+
+    font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -.035em;
+
+    color: var(--mkf-text-primary);
+}
+
+
+/* =========================================================
+   GRADE
+   ========================================================= */
+
+.promo-banner-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    /* espaçamento maior entre os posters */
+    gap: 22px;
+}
+
+.promo-banner-grid.is-single {
+    grid-template-columns: 1fr;
+}
+
+
+/* =========================================================
+   BANNER
+   ========================================================= */
+
+.promo-banner {
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    min-height: 235px;
+
+    padding: 28px 30px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, .07);
+    border-radius: 22px;
+
+    background:
+        radial-gradient(
+            90% 130% at 92% 50%,
+            #202020 0%,
+            #111 45%,
+            #080808 100%
+        );
+
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .035);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+/* brilho sutil no canto */
+.promo-banner::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(55% 90% at 100% 50%,
+            color-mix(in srgb,
+                var(--mkf-ui-primary, #092af3) 14%,
+                transparent),
+            transparent 75%);
+
+    opacity: .8;
+}
+
+/* textura extremamente discreta */
+.promo-banner::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .025),
+            transparent 40%);
+}
+
+.promo-banner:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(255, 255, 255, .12);
+
+    box-shadow:
+        0 20px 48px rgba(0, 0, 0, .18),
+        inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.promo-banner-content {
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 7px;
+
+    max-width: 57%;
+}
+
+.promo-banner-eyebrow {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 22px;
+
+    padding: 0 9px;
+
+    border: 1px solid color-mix(in srgb,
+            var(--mkf-ui-primary, #092af3) 35%,
+            transparent);
+
+    border-radius: 999px;
+
+    background: color-mix(in srgb,
+            var(--mkf-ui-primary, #092af3) 9%,
+            transparent);
+
+    font-size: .61rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    color: var(--mkf-ui-primary, #092af3);
+}
+
+.promo-banner-title {
+    margin: 4px 0 0;
+
+    max-width: 100%;
+
+    font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -.04em;
+
+    color: #fff;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.promo-banner-text {
+    margin: 2px 0 0;
+
+    max-width: 100%;
+
+    font-size: .82rem;
+    line-height: 1.5;
+
+    color: rgba(255, 255, 255, .65);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.promo-banner-text s {
+    color: rgba(255, 255, 255, .38);
+}
+
+.promo-banner-text strong {
+    color: #fff;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BOTÃO
+   ========================================================= */
+
+.promo-banner-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 39px;
+
+    margin-top: 10px;
+    padding: 0 16px;
+
+    border: 0;
+    border-radius: 999px;
+
+    background: var(--mkf-ui-primary, #092af3);
+    color: var(--mkf-on-primary, #fff);
+
+    font: inherit;
+    font-size: .79rem;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px color-mix(in srgb,
+            var(--mkf-ui-primary, #092af3) 22%,
+            transparent);
+
+    transition:
+        transform .2s ease,
+        filter .2s ease,
+        box-shadow .2s ease;
+}
+
+.promo-banner-cta svg {
+    font-size: 1rem;
+
+    transition: transform .2s ease;
+}
+
+.promo-banner-cta:hover {
+    transform: translateY(-1px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 8px 22px color-mix(in srgb,
+            var(--mkf-ui-primary, #092af3) 30%,
+            transparent);
+}
+
+.promo-banner-cta:hover svg {
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   ARTE / PRODUTO
+   ========================================================= */
+
+.promo-banner-art {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1;
+
+    /*
+     * A foto começa mais para a esquerda e ocupa
+     * praticamente metade do poster.
+     */
+    width: 55%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DESCONTO GIGANTE
+   ========================================================= */
+
+.promo-banner-off {
+    position: absolute;
+
+    right: -5px;
+
+    display: flex;
+    align-items: flex-start;
+
+    font-size: clamp(4.8rem, 9vw, 7.4rem);
+    font-weight: 850;
+
+    line-height: .8;
+    letter-spacing: -.085em;
+
+    color: var(--mkf-ui-primary, #092af3);
+
+    opacity: .13;
+
+    transform: translateY(3px);
+}
+
+.promo-banner-off em {
+    margin-top: .08em;
+
+    font-size: .25em;
+    font-style: normal;
+    font-weight: 750;
+
+    line-height: 1.05;
+    letter-spacing: .02em;
+}
+
+
+/* =========================================================
+   FOTO
+   ========================================================= */
+
+.promo-banner-photo {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    background: transparent !important;
+}
+
+.promo-banner-photo img {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: cover !important;
+    object-position: center center !important;
+
+    transform: none;
+
+    filter:
+        brightness(.94)
+        drop-shadow(-14px 15px 25px rgba(0, 0, 0, .45));
+
+    transition:
+        transform .4s cubic-bezier(.2, .8, .2, 1),
+        filter .3s ease;
+}
+
+.promo-banner:hover .promo-banner-photo img {
+    transform: scale(1.035);
+
+    filter:
+        brightness(.98)
+        drop-shadow(-16px 18px 28px rgba(0, 0, 0, .5));
+}
+
+
+
+/* =========================================================
+   SKELETON
+   ========================================================= */
+
+.promo-banner-photo .product-thumb-skeleton {
+    background-color: transparent;
+
+    background-image:
+        linear-gradient(100deg,
+            transparent 25%,
+            rgba(255, 255, 255, .07) 50%,
+            transparent 75%);
+}
+
+.promo-banner-photo .product-thumb-empty {
+    color: rgba(255, 255, 255, .25);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .promo-banner-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .promo-banner {
+        min-height: 210px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    .promo-carousel {
+        margin-bottom: 34px;
+    }
+
+    .promo-carousel-heading {
+        margin-bottom: 18px;
+    }
+
+    .promo-carousel-heading h2 {
+        font-size: 1.3rem;
+    }
+
+    .promo-banner-grid {
+        gap: 14px;
+    }
+
+    .promo-banner {
+        min-height: 188px;
+
+        padding: 20px;
+
+        border-radius: 19px;
+    }
+
+    .promo-banner-content {
+        max-width: 65%;
+    }
+
+    .promo-banner-art {
+        width: 48%;
+    }
+
+    .promo-banner-off {
+        right: -4px;
+        font-size: 3.9rem;
+    }
+
+    .promo-banner-title {
+        font-size: 1.25rem;
+    }
+
+    .promo-banner-text {
+        font-size: .76rem;
+    }
+
+    .promo-banner-cta {
+        min-height: 36px;
+        padding: 0 14px;
+
+        font-size: .75rem;
+    }
+
+}
+
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .promo-banner {
+        min-height: 180px;
+        padding: 17px;
+    }
+
+    .promo-banner-content {
+        max-width: 68%;
+    }
+
+    .promo-banner-art {
+        width: 45%;
+    }
+
+    .promo-banner-off {
+        font-size: 3.3rem;
+    }
+
+}

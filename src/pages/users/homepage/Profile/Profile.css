@@ -1,0 +1,620 @@
+/* =========================================================
+   PERFIL DO CLIENTE
+
+   Uma coluna de cartões. Nada de posicionamento absoluto e
+   nada de altura fixa: a tela cresce com o conteúdo, e o
+   que muda entre um usuário e outro — pendências, bloco da
+   empresa — some sem deixar buraco.
+
+   As cores saem dos tokens (--mkf-*), então claro e escuro
+   funcionam sem uma regra a mais.
+   ========================================================= */
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 0 120px;
+    /* O respiro no fim é a tab bar, que flutua sobre a
+       página e cobriria o último cartão. */
+
+    box-sizing: border-box;
+}
+
+
+/* ---------- Estados ---------- */
+
+.profile-loading,
+.profile-guest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 60dvh;
+    padding: 24px;
+
+    text-align: center;
+    color: var(--mkf-text-secondary);
+}
+
+.profile-loading svg {
+    font-size: 32px;
+}
+
+.profile-guest-icon {
+    display: grid;
+    place-items: center;
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+    background: var(--mkf-ui-primary-soft);
+    color: var(--mkf-ui-primary);
+
+    font-size: 36px;
+}
+
+.profile-guest h2 {
+    margin: 4px 0 0;
+    font-size: 1.3rem;
+    color: var(--mkf-text-primary);
+}
+
+.profile-guest p {
+    max-width: 38ch;
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
+
+
+/* ---------- Cabeçalho ---------- */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 20px;
+
+    border: 1px solid var(--mkf-ui-border);
+    border-radius: 20px;
+    background: var(--mkf-ui-surface);
+}
+
+.profile-avatar {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+
+    overflow: hidden;
+    border-radius: 50%;
+    background: var(--mkf-ui-primary-soft);
+    color: var(--mkf-ui-primary);
+
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* O input some; quem recebe o clique é o rótulo inteiro. */
+.profile-avatar input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.profile-avatar-initial {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--mkf-ui-primary);
+
+    /* A letra fica um pouco acima do centro óptico se não
+       compensar aqui. */
+    transform: translateY(1px);
+}
+
+/* Faixa de "trocar foto" na base do círculo. */
+.profile-avatar-edit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: grid;
+    place-items: center;
+
+    height: 22px;
+
+    background: rgba(0, 0, 0, .55);
+    color: #fff;
+
+    font-size: 13px;
+
+    opacity: 0;
+    transition: opacity .16s ease;
+
+    pointer-events: none;
+}
+
+.profile-avatar:hover .profile-avatar-edit,
+.profile-avatar:focus-within .profile-avatar-edit {
+    opacity: 1;
+}
+
+/* No toque não existe hover: a faixa fica sempre visível. */
+@media (hover: none) {
+
+    .profile-avatar-edit {
+        opacity: 1;
+    }
+
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.profile-identity h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--mkf-text-primary);
+
+    /* Nome longo não pode empurrar o cartão. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-identity span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: .88rem;
+    color: var(--mkf-text-secondary);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ---------- Pendências ---------- */
+
+.profile-pending {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-pending-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    padding: 14px 16px;
+
+    border: 1px solid var(--mkf-ui-warning-border);
+    border-radius: 16px;
+    background: var(--mkf-ui-warning-soft);
+
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-pending-item > svg:first-child {
+    flex: 0 0 auto;
+    font-size: 20px;
+    color: #b07d17;
+}
+
+.profile-pending-item span {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.profile-pending-item strong {
+    font-size: .95rem;
+    font-weight: 600;
+}
+
+.profile-pending-item small {
+    font-size: .82rem;
+    line-height: 1.4;
+    color: var(--mkf-text-secondary);
+}
+
+
+/* ---------- Cartões ---------- */
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding: 20px;
+
+    border: 1px solid var(--mkf-ui-border);
+    border-radius: 20px;
+    background: var(--mkf-ui-surface);
+}
+
+.profile-section-title {
+    margin: 0;
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--mkf-text-primary);
+}
+
+.profile-section-eyebrow {
+    display: block;
+
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--mkf-ui-primary);
+}
+
+.profile-empty {
+    margin: 0;
+    font-size: .9rem;
+    line-height: 1.5;
+    color: var(--mkf-text-secondary);
+}
+
+
+/* ---------- Empresa ---------- */
+
+.profile-company-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.profile-company-icon {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--mkf-ui-primary-soft);
+    color: var(--mkf-ui-primary);
+
+    font-size: 24px;
+}
+
+.profile-company-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-company-main strong {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--mkf-text-primary);
+}
+
+
+/* ---------- Números dos agendamentos ---------- */
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.profile-stats > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+
+    padding: 14px 8px;
+
+    border-radius: 14px;
+    background: var(--mkf-ui-surface-hover);
+}
+
+.profile-stats strong {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--mkf-text-primary);
+}
+
+.profile-stats span {
+    font-size: .78rem;
+    color: var(--mkf-text-secondary);
+}
+
+
+/* ---------- Linhas de dado ---------- */
+
+.profile-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 0;
+    border-bottom: 1px solid var(--mkf-ui-border);
+}
+
+.profile-row:last-of-type {
+    border-bottom: 0;
+}
+
+.profile-row-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.profile-row-text > span {
+    font-size: .78rem;
+    color: var(--mkf-text-secondary);
+}
+
+.profile-row-text strong {
+    font-size: .95rem;
+    font-weight: 500;
+    color: var(--mkf-text-primary);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-row-text input {
+    width: 100%;
+    padding: 8px 10px;
+
+    border: 1px solid var(--mkf-ui-border);
+    border-radius: 10px;
+    background: var(--mkf-ui-background);
+    color: var(--mkf-text-primary);
+
+    font: inherit;
+    font-size: .95rem;
+}
+
+.profile-row-text input:focus {
+    outline: 2px solid var(--mkf-ui-primary);
+    outline-offset: 1px;
+}
+
+.profile-row-edit {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 36px;
+    height: 36px;
+
+    border: 0;
+    border-radius: 10px;
+    background: var(--mkf-ui-surface-hover);
+    color: var(--mkf-text-secondary);
+
+    cursor: pointer;
+}
+
+.profile-row-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.profile-row-actions button {
+    min-height: 36px;
+    padding: 0 14px;
+
+    border: 1px solid var(--mkf-ui-border);
+    border-radius: 100px;
+    background: none;
+    color: var(--mkf-text-secondary);
+
+    font: inherit;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+.profile-row-actions button.is-primary {
+    border-color: transparent;
+    background: var(--mkf-ui-primary);
+    color: var(--mkf-on-primary);
+    font-weight: 600;
+}
+
+.profile-row-actions button:disabled {
+    opacity: .55;
+    cursor: default;
+}
+
+
+/* ---------- Botões e links ---------- */
+
+.profile-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 46px;
+    padding: 0 20px;
+
+    border: 1px solid transparent;
+    border-radius: 100px;
+
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.profile-button--primary {
+    background: var(--mkf-ui-primary);
+    color: var(--mkf-on-primary);
+}
+
+.profile-button--ghost {
+    border-color: var(--mkf-ui-border);
+    background: none;
+    color: var(--mkf-text-primary);
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    padding: 12px 0;
+
+    border: 0;
+    border-bottom: 1px solid var(--mkf-ui-border);
+    background: none;
+
+    font: inherit;
+    font-size: .95rem;
+    color: var(--mkf-text-primary);
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-link:last-of-type {
+    border-bottom: 0;
+}
+
+.profile-link span {
+    flex: 1;
+}
+
+.profile-link.is-danger {
+    color: var(--mkf-ui-danger);
+}
+
+
+/* ---------- Confirmação de saída ---------- */
+
+.profile-logout-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    width: min(400px, 100%);
+    padding: 28px 24px;
+
+    border-radius: 24px;
+    background: var(--mkf-ui-surface);
+
+    text-align: center;
+}
+
+.profile-logout-icon {
+    display: grid;
+    place-items: center;
+
+    width: 56px;
+    height: 56px;
+
+    border-radius: 50%;
+    background: var(--mkf-ui-danger-soft);
+    color: var(--mkf-ui-danger);
+
+    font-size: 26px;
+}
+
+.profile-logout-modal h2 {
+    margin: 4px 0 0;
+    font-size: 1.15rem;
+    color: var(--mkf-text-primary);
+}
+
+.profile-logout-modal p {
+    margin: 0 0 8px;
+    font-size: .92rem;
+    line-height: 1.5;
+    color: var(--mkf-text-secondary);
+}
+
+.profile-logout-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.profile-logout-actions button {
+    flex: 1;
+    min-height: 46px;
+
+    border: 1px solid var(--mkf-ui-border);
+    border-radius: 100px;
+    background: none;
+    color: var(--mkf-text-primary);
+
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.profile-logout-actions button.is-danger {
+    border-color: transparent;
+    background: var(--mkf-ui-danger);
+    color: #fff;
+}
+
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 680px) {
+
+    .profile {
+        padding-top: 12px;
+    }
+
+    .profile-header,
+    .profile-section {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .profile-logout-modal {
+        border-radius: 22px 22px 0 0;
+    }
+
+}

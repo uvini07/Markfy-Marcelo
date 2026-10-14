@@ -1,0 +1,279 @@
+.mercado-pago-payment {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mercado-pago-payment-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.mercado-pago-payment-header button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.mercado-pago-payment-header h2 {
+    margin: 0;
+}
+
+.mercado-pago-payment-header p {
+    margin: 0.25rem 0 0;
+}
+
+.mercado-pago-payment-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.mercado-pago-payment-amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.mercado-pago-payment-amount strong {
+    font-size: 1.25rem;
+}
+
+.mercado-pago-payment-brick {
+    width: 100%;
+}
+
+/* =====================================================
+   CARREGANDO / ERRO / RESULTADO
+===================================================== */
+
+.mercado-pago-payment-loading,
+.mercado-pago-payment-error,
+.mercado-pago-payment-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    padding: 2.5rem 1.25rem;
+    text-align: center;
+}
+
+.mercado-pago-payment-spinner {
+    width: 36px;
+    height: 36px;
+
+    border: 3px solid rgba(9, 42, 243, 0.15);
+    border-top-color: #092af3;
+    border-radius: 50%;
+
+    animation: mp-spin 0.8s linear infinite;
+}
+
+@keyframes mp-spin {
+    to { transform: rotate(360deg); }
+}
+
+.mercado-pago-payment-error svg,
+.mercado-pago-payment-result-icon {
+    font-size: 3rem;
+    color: var(--mkf-ui-primary);
+}
+
+.mercado-pago-payment-error svg {
+    color: #d93025;
+}
+
+.mercado-pago-payment-result-icon.is-success {
+    color: #00a676;
+}
+
+.mercado-pago-payment-error h3,
+.mercado-pago-payment-result h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.mercado-pago-payment-error p,
+.mercado-pago-payment-result p {
+    max-width: 38ch;
+    margin: 0;
+    line-height: 1.5;
+    color: #5c6278;
+}
+
+.mercado-pago-payment-error button,
+.mercado-pago-payment-primary {
+    min-height: 46px;
+    padding: 0 1.5rem;
+
+    border: 0;
+    border-radius: 100px;
+    background: var(--mkf-ui-primary);
+    color: var(--mkf-on-primary);
+
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mercado-pago-payment-inline-error {
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+
+    border-radius: 12px;
+    background: #fdecea;
+    color: #a3261c;
+
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.mercado-pago-payment-qr {
+    width: min(220px, 70vw);
+    height: auto;
+    border-radius: 12px;
+}
+
+.mercado-pago-payment-pix-code {
+    width: 100%;
+    max-width: 360px;
+    padding: 0.75rem;
+
+    border: 1px dashed #c8cede;
+    border-radius: 12px;
+    background: #f4f6fc;
+}
+
+.mercado-pago-payment-pix-code code {
+    display: block;
+    max-height: 5.5em;
+    overflow: auto;
+
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+}
+
+.mercado-pago-payment-result a {
+    color: var(--mkf-ui-primary);
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MENSALIDADE — AVISO DE COBRANÇA AUTOMÁTICA
+
+   Fica acima do formulário, não abaixo: autorizar um débito
+   que se repete é a decisão principal desta tela, e quem
+   decide precisa ler antes de digitar o cartão.
+   ========================================================= */
+
+.mercado-pago-subscription-notice {
+    margin-bottom: 18px;
+    padding: 16px;
+
+    border: 1px solid var(--mkf-ui-border, #e4e7ef);
+    border-radius: 16px;
+    background: var(--mkf-ui-surface-hover, #f6f8fd);
+}
+
+.mercado-pago-subscription-notice-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 12px;
+
+    font-size: .95rem;
+    color: var(--mkf-text-primary);
+}
+
+.mercado-pago-subscription-notice-head svg {
+    font-size: 21px;
+    color: var(--mkf-ui-primary, #092af3);
+}
+
+.mercado-pago-subscription-notice ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.mercado-pago-subscription-notice li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+
+    font-size: .88rem;
+    line-height: 1.5;
+    color: var(--mkf-text-secondary, #5c6278);
+}
+
+.mercado-pago-subscription-notice li svg {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    font-size: 17px;
+    color: var(--mkf-ui-primary, #092af3);
+}
+
+.mercado-pago-subscription-notice li strong {
+    color: var(--mkf-text-primary);
+}
+
+.mercado-pago-subscription-accept {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 14px;
+    padding-top: 14px;
+
+    border-top: 1px solid var(--mkf-ui-border, #e4e7ef);
+
+    font-size: .9rem;
+    line-height: 1.45;
+    color: var(--mkf-text-primary);
+    cursor: pointer;
+}
+
+.mercado-pago-subscription-accept input {
+    flex: 0 0 auto;
+    width: 19px;
+    height: 19px;
+    margin: 1px 0 0;
+    accent-color: var(--mkf-ui-primary, #092af3);
+    cursor: pointer;
+}
+
+
+/* Espera do Pix — a tela se atualiza sozinha. */
+
+.mercado-pago-payment-waiting {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 4px 0 12px;
+    padding: 9px 15px;
+
+    border-radius: 100px;
+    background: var(--mkf-ui-surface-hover, #f1f3f9);
+
+    font-size: .86rem;
+    color: var(--mkf-text-secondary, #5c6278);
+}
+
+.mercado-pago-payment-waiting svg {
+    font-size: 16px;
+    color: var(--mkf-ui-primary, #092af3);
+}
